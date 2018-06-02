@@ -1,19 +1,49 @@
 import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
-import HomeScreen from './home';
+import HomeScreen from './home_tab/home';
 import SearchScreen from './search';
 import UploadScreen from './upload';
 import HeartScreen from './heart';
 import ProfileScreen from './profile';
 
-export default createBottomTabNavigator({
+export default createBottomTabNavigator(
+  {
   Home: HomeScreen,
   Settings: SearchScreen,
   upload: UploadScreen,
   heart: HeartScreen,
-  profile: ProfileScreen
-});
+  profile: ProfileScreen,
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = `ios-home`;
+        } else if (routeName === 'Settings') {
+          iconName = `ios-search`;
+        } else if (routeName === 'upload') {
+          iconName = `ios-add-circle${focused ? '' : '-outline'}`;
+        } else if (routeName === 'heart') {
+          iconName = `ios-heart${focused ? '': '-outline'}`;
+        } else {
+          iconName = `ios-contact`;
+        }
+
+        // You can return any component that you like here! We usually use an
+        // icon component from react-native-vector-icons
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+    },
+  }
+);
 
 const styles = StyleSheet.create({
   container: {

@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function({title}){
   return (
     <View style={styles.viewStyle}>
+
       <Text style={styles.textStyle}>{title}</Text>
     </View>
   );
