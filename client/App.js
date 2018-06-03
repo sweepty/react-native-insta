@@ -3,8 +3,13 @@ import { StyleSheet, Text, View, Button, SafeAreaView, KeyboardAvoidingView } fr
 import { createStackNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation';
 import TabBar from './components/tab';
-
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    // this.state = {
+
+    // }
+  }
   render() {
     return (
       <TabBar />

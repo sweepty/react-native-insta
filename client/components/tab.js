@@ -6,7 +6,7 @@ import HomeScreen from './home_tab/home';
 import SearchScreen from './search';
 import UploadScreen from './upload';
 import HeartScreen from './heart';
-import ProfileScreen from './profile';
+import ProfileScreen from './profile_tab/profile';
 
 export default createBottomTabNavigator(
   {
