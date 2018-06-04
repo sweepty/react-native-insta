@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import HomeScreen from './home_tab/home';
 import SearchScreen from './search';
-import UploadScreen from './upload';
+import UploadScreen from './upload/upload';
 import HeartScreen from './heart';
 import ProfileScreen from './profile_tab/profile';
 
@@ -39,7 +39,7 @@ export default createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'tomato',
+      activeTintColor: 'steelblue',
       inactiveTintColor: 'gray',
     },
   }

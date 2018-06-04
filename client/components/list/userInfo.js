@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   textStyle: {
-    fontSize: 18,
+    fontSize: 15,
     marginTop: 10,
-    marginLeft: 10
+    marginLeft: 10,
+    fontWeight: "bold"
   },
   userInfo: {
     height: 60,

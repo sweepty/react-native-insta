@@ -31,7 +31,8 @@ class HomeScreen extends React.Component {
           data={[{id: 'salyeon', content:'눈빛을 보면 난 알 수가 있어 아무런 말도 필요치 않아 이런게 아마 사랑일거야 첫 눈에 반해 버린 사랑', like: 1}, 
           {id: 'adie', content:'아무런 말도 필요치 않아', like: 2}, 
           {id: 'ella', content:'이런게 아마 사랑일거야', like: 3},
-          {id: 'presto', content:'첫 눈에 반해 버린 사랑', like: 4}]}
+          {id: 'presto', content:'첫 눈에 반해 버린 사랑', like: 4},
+          {id: 'parrot', content:'진진자라', like: 4}]}
           renderItem={({item}) =>
             <View key={item.id} style={styles.listItem}>
               <UserInfo id={item.id}/>
@@ -68,9 +69,9 @@ const styles = StyleSheet.create({
   listView: {
     width: 100 + "%",
     // backgroundColor: "slateblue",
-    // margin: 10
+    margin: 10
   },
   listItem: {
-    // margin: 10
+    marginBottom: 20
   }
 });
