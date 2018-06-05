@@ -3,7 +3,7 @@ const router = express.Router();
 const basicAuth = require('express-basic-auth');
 
 router.use(basicAuth({
-  users: { 'admin': 'supersecret' },
+  users: { 'adie': '123' },
   challenge: true,
   realm: 'AdminSample',
 }));
