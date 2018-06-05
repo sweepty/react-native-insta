@@ -3,7 +3,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import HomeScreen from './home_tab/home';
-import SearchScreen from './search';
+import SearchScreen from './search_tab/search';
 import UploadScreen from './upload/upload';
 import HeartScreen from './heart';
 import ProfileScreen from './profile_tab/profile';
@@ -44,6 +44,16 @@ export default createBottomTabNavigator(
     },
   }
 );
+// const AppNavigator = createSwitchNavigator(
+//   {
+//     AuthLoading: AuthLoadingScreen,
+//     App: RootStack,
+//     Auth: AuthStack,
+//   },
+//   {
+//     initialRouteName: 'AuthLoading',
+//   }
+// );
 
 const styles = StyleSheet.create({
   container: {
