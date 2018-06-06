@@ -23,15 +23,18 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "expo": "^27.0.1",
     "global": "^4.3.2",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
+    "qs": "^6.5.2",
     "react": "16.3.1",
     "react-native": "~0.55.2",
     "react-navigation": "^2.0.4",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "sequelize": "^4.37.10",
     "sequelize-cli": "^4.0.0"
   }

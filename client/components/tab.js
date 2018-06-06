@@ -44,16 +44,6 @@ export default createBottomTabNavigator(
     },
   }
 );
-// const AppNavigator = createSwitchNavigator(
-//   {
-//     AuthLoading: AuthLoadingScreen,
-//     App: RootStack,
-//     Auth: AuthStack,
-//   },
-//   {
-//     initialRouteName: 'AuthLoading',
-//   }
-// );
 
 const styles = StyleSheet.create({
   container: {
@@ -63,3 +53,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+

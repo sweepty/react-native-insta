@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, SafeAreaView, FlatList, Swipeout } from
 import { createStackNavigator } from 'react-navigation';
 import UserInfo from '../list/userInfo';
 import Content from '../list/content';
+import { fetchUsers } from '../../actions';
 class HomeScreen extends React.Component {
 
   static navigationOptions = {
@@ -26,6 +27,8 @@ class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
+          refreshing={true}
+          // onRefresh={fetchUsers()}
           style={styles.listView}
           keyExtractor={this._keyExtractor}
           data={[{id: 'salyeon', content:'눈빛을 보면 난 알 수가 있어 아무런 말도 필요치 않아 이런게 아마 사랑일거야 첫 눈에 반해 버린 사랑', like: 1}, 
