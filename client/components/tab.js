@@ -1,14 +1,18 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import HomeScreen from './home_tab/home';
 import SearchScreen from './search_tab/search';
 import UploadScreen from './upload/upload';
 import HeartScreen from './heart';
 import ProfileScreen from './profile_tab/profile';
-
-export default createBottomTabNavigator(
+import SignInScreen from './signin';
+import AuthLoadingScreen from './auth_loading';
+import OtherScreen from './other';
+const OtherStack = createStackNavigator({ Other: OtherScreen });
+const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+const RootStack = createBottomTabNavigator(
   {
   Home: HomeScreen,
   Settings: SearchScreen,
@@ -44,6 +48,19 @@ export default createBottomTabNavigator(
     },
   }
 );
+const AppNavigator = createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: RootStack,
+    Auth: AuthStack,
+    Other: OtherStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+);
+
+export default AppNavigator;
 
 const styles = StyleSheet.create({
   container: {

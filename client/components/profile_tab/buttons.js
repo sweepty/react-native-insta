@@ -10,7 +10,7 @@ export default function(props){ //props
   return (
     <View style={styles.viewStyle}>
       <Button onPress={onPressLearnMore} title="프로필 수정" color="black"/>
-      <Button onPress={onPressLearnMore} title="설정" color="black"/>
+      <Button onPress={() => this.props.navigation.navigate('Other')} title="설정" color="black"/>
     </View>
     
   );

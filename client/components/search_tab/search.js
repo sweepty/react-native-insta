@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, SafeAreaView, ScrollView } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import PhotoList from './search_list';
-// import Signin from '../signin';
 export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -22,8 +21,6 @@ export default class SettingsScreen extends React.Component {
               value={this.state.text}
             />
           </View>
-          {/* <Signin/> */}
-          {/* <PhotoList /> */}
         </ScrollView>
       </SafeAreaView>
       );

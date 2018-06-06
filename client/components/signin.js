@@ -11,7 +11,7 @@ import { signin } from '../actions';
 
 class SignInScreen extends React.Component {
   static navigationOptions = {
-    title: 'Please sign in',
+    title: 'Sign in',
   };
   constructor(props) {
     super(props);
@@ -28,10 +28,12 @@ class SignInScreen extends React.Component {
           spellCheck={false}
           autoCorrect={false}
           autoCapitalize='none'
+          borderRadius="10"
           value={this.state.username}
           />
         <TextInput placeholder="Password" style={styles.input}
           onChangeText={(password) => this.setState({ password })}
+          borderRadius="10"
           value={this.state.password}
           secureTextEntry={true} />
         <Button title="Sign in!" onPress={() => {

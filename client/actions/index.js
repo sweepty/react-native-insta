@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import { AsyncStorage } from 'react-native';
-// import { Config } from '../config';
+import { Config } from '../config';
 import NavigationService from '../navigation_service';
 
 export function signin(username, password) {

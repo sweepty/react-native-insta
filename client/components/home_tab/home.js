@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, SafeAreaView, FlatList, Swipeout } from
 import { createStackNavigator } from 'react-navigation';
 import UserInfo from '../list/userInfo';
 import Content from '../list/content';
-import { fetchUsers } from '../../actions';
+// import { fetchUsers } from '../../actions';
 class HomeScreen extends React.Component {
 
   static navigationOptions = {
@@ -27,7 +27,7 @@ class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
-          refreshing={true}
+          // refreshing={true}
           // onRefresh={fetchUsers()}
           style={styles.listView}
           keyExtractor={this._keyExtractor}
