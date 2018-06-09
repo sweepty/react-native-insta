@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage, StackNavigator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function(props){ //props
@@ -10,11 +10,16 @@ export default function(props){ //props
   return (
     <View style={styles.viewStyle}>
       <Button onPress={onPressLearnMore} title="프로필 수정" color="black"/>
-      <Button onPress={() => this.props.navigation.navigate('Other')} title="설정" color="black"/>
+      {/* <Button title="sign out" onPress={this._signOutAsync} /> */}
+      <Button onPress={() => this.props.navigation.navigate('other')} title="설정" color="black"/>
     </View>
     
   );
 };
+// _signOutAsync = async () => {
+//   await AsyncStorage.clear();
+//   this.props.navigation.navigate('Auth');
+// };
 
 const styles = StyleSheet.create({
   viewStyle: {

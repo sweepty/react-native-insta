@@ -24,5 +24,11 @@ module.exports = function(app) {
     const users = await db.User.findAll({});
     res.json(users);
   }));
+
+  router.get('/me', asyncError(async (req, res, next) => {
+    console.log("유저네임찾기1");
+    const user = await db.User.findOne({where: {username: req.params.username}});
+    res.json(user);
+  }));
   return router;
 }

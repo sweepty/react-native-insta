@@ -4,6 +4,8 @@ import { AsyncStorage } from 'react-native';
 import { Config } from '../config';
 import NavigationService from '../navigation_service';
 
+export const FETCHED_USERS = 'FETCHED_USERS';
+export const FETCHED_USERINFO = 'FETCHED_USERINFO';
 export function signin(username, password) {
   return async dispatch => {
     try {
@@ -45,7 +47,7 @@ export function fetchUsers() {
   return dispatch => {
     console.log(axios.defaults.headers.common);
     axios.get(`${Config.server}/api/users`).then( response => {
-      dispatch({type: 'FETCHED_USERS', payload: response.data});
+      dispatch({type: FETCHED_USERS , payload: response.data});
     }).catch(err => {
       console.log(err.response);
       if (err.response.status == 401) {
@@ -57,4 +59,35 @@ export function fetchUsers() {
   };
 }
 
+export function getInfo() {
+  return dispatch => {
+    console.log(axios.defaults.headers.common);
+    axios.get(`${Config.server}/api/users/me`).then( response => {
+      dispatch({type: 'FETCHED_USERINFO', payload: response.data});
+      console.log(response.data);
+    }).catch(err => {
+      console.log(err.response);
+      if (err.response.status == 401) {
+        dispatch(signout());
+      } else {
+        alert('Network Error');
+      }
+    });
+  };
+}
+export function fetchPost() {
+  return dispatch => {
+    console.log(axios.defaults.headers.common);
+    axios.get(`${Config.server}/api/post`).then( response => {
+      dispatch({type: 'FETCHED_POST', payload: response.data});
+    }).catch(err => {
+      console.log(err.response);
+      if (err.response.status == 401) {
+        dispatch(signout());
+      } else {
+        alert('Network Error');
+      }
+    });
+  };
+}
 

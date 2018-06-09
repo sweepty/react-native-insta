@@ -10,7 +10,7 @@ import ProfileScreen from './profile_tab/profile';
 import SignInScreen from './signin';
 import AuthLoadingScreen from './auth_loading';
 import OtherScreen from './other';
-const OtherStack = createStackNavigator({ Other: OtherScreen });
+// const OtherStack = createStackNavigator({ Other: OtherScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 const RootStack = createBottomTabNavigator(
   {
@@ -19,6 +19,7 @@ const RootStack = createBottomTabNavigator(
   upload: UploadScreen,
   heart: HeartScreen,
   profile: ProfileScreen,
+  other: OtherScreen
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -53,7 +54,7 @@ const AppNavigator = createSwitchNavigator(
     AuthLoading: AuthLoadingScreen,
     App: RootStack,
     Auth: AuthStack,
-    Other: OtherStack,
+    // Other: OtherStack,
   },
   {
     initialRouteName: 'AuthLoading',
