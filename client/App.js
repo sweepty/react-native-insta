@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, KeyboardAvoidingView} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { Provider } from "react-redux";
@@ -15,9 +15,6 @@ import AppNavigator from './components/tab';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-
-    // }
   }
   render() {
     return (
@@ -29,13 +26,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

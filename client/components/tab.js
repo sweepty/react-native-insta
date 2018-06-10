@@ -11,6 +11,7 @@ import SignInScreen from './signin';
 import AuthLoadingScreen from './auth_loading';
 import OtherScreen from './other';
 // const OtherStack = createStackNavigator({ Other: OtherScreen });
+const ProfileStack = createStackNavigator({Profile: {screen: ProfileScreen}});
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 const RootStack = createBottomTabNavigator(
   {
@@ -18,7 +19,7 @@ const RootStack = createBottomTabNavigator(
   Settings: SearchScreen,
   upload: UploadScreen,
   heart: HeartScreen,
-  profile: ProfileScreen,
+  profile: ProfileStack,
   other: OtherScreen
   },
   {
@@ -61,7 +62,7 @@ const AppNavigator = createSwitchNavigator(
   }
 );
 
-export default AppNavigator;
+export default AppNavigator
 
 const styles = StyleSheet.create({
   container: {

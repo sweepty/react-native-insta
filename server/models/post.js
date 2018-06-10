@@ -1,36 +1,30 @@
 'use strict';
 const bcrypt = require('bcrypt');
+const User = require('./user');
 
 module.exports = (sequelize, DataTypes) => {
   var Post = sequelize.define('Post', {
-    postId: {
+    userId: {
       type: DataTypes.INTEGER, 
-      primaryKey: true, 
-      autoIncrement: true
+      allowNull: false, 
+      references: {
+        model: User, 
+        key: 'userId'
+      }
     },
-    // userId: {
-    //   type: DataTypes.INTEGER, 
-    //   allowNull: false, 
-    //   references: {
-    //     model: models.User, 
-    //     key: 'userId'
-    //   }
-    // },
-    content: DataTypes.TEXT,
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     image: {
       type: DataTypes.BLOB,
       allowNull: true
     },
-    createAt: {
-      type: DataTypes.DATE, 
-      defaultValue: DataTypes.NOW
-    }
   },
   {
     classMethods: {},
     tableName: 'post',
     freezeTableName: true,
-    // underscored: true,
     timestamps: false
   }, {});
   return Post;

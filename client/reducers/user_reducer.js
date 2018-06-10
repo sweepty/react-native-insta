@@ -13,14 +13,14 @@ export default function(state = {
     return {
       loading: false,
       error: '',
-      users: action.payload.data,
+      info: action.payload,
     };
   }
   case `${FETCHED_USERINFO}_FULFILLED`:
     return{
       loading: false,
       error: '',
-      info: action.payload.data,
+      info: action.payload,
     };
   default :
     return state;
