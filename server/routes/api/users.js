@@ -25,8 +25,8 @@ module.exports = function(app) {
   });
   router.get('/', asyncError(async (req, res, next) => {
     console.log(req,"로컬러러럴러러러러러")
-    const users = await db.User.findAll({where: {username: "adie"}});
-    // const users = await db.User.findAll({});
+    // const users = await db.User.findAll({where: {username: "adie"}});
+    const users = await db.User.findAll({});
     res.json(users);
   }));
   

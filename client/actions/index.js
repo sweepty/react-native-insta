@@ -26,8 +26,8 @@ export function signin(username, password) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
       console.log(`Bearer ${response.data.access_token}`);
       console.log(username,"유저네이이이이임")
-
-      dispatch({type: LOGIN, payload: username})
+        
+      dispatch({type: LOGIN, payload: "adie"}); 
       await AsyncStorage.setItem('accessToken', response.data.access_token);
       NavigationService.navigate('App');
     } catch (err) {

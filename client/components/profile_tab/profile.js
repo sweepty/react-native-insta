@@ -13,10 +13,10 @@ import { fetchUsers, getInfo } from '../../actions/index';
 class profileScreen extends React.Component {
   componentDidMount() {
     this.props.fetchUsers();
-    // this.props.getInfo(); 
+    this.props.getInfo(this.props.auth); 
   }
   renderUsers() {
-    console.log(this.props,"dkdkdk")
+    console.log(this.props.users.username,"dkdkdk")
     if (this.props.users) {
       return this.props.users.map(user => {
         return (
@@ -30,6 +30,7 @@ class profileScreen extends React.Component {
   render() {
     console.log(this.props.info,"인포확인")
     console.log(this.props.users,"인포확인")
+    console.log(this.props.auth,"유저네임ㅎㅎㅎ")
     return (
       <View style={styles.container}>
         <View style={styles.users}>
@@ -54,6 +55,7 @@ function mapStateToProps(state) {
   return { 
     users: state.users,
     info: state.info,
+    auth: state.auth
   };
 }
 export default connect(mapStateToProps, { fetchUsers, getInfo })(profileScreen);
