@@ -6,11 +6,6 @@ export default function(props){ //props
 //   let {posts, follower, following} = props;
   _keyExtractor = (item, index) => item.id;
   renderItem = (item) => {
-    // const swipeSettings = {
-    //   right: [
-    //     { onPress: () => this.deleteItem(item.index), text: 'Delete', type: 'delete' }
-    //   ], 
-    // };
     return <Swipeout {...swipeSettings}>
       <ListItem 
         key={item.index} 

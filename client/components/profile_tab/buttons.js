@@ -12,6 +12,10 @@ export default function(props){ //props
   };
   return (
     <View style={styles.viewStyle}>
+      {/* <Button
+        title="Edit profile"
+        onPress={() => this.props.navigation.navigate('edit')}
+      /> */}
       <Button onPress={onPressLearnMore} title="프로필 수정" color="black"/>
       {/* <Button title="sign out" onPress={this._signOutAsync} /> */}
       <Button onPress={_showMoreApp} title="설정" color="black"/>

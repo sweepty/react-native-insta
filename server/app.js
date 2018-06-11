@@ -10,7 +10,7 @@ var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var postRouter = require('./routes/post');
 var app = express();
 
 app.oauth = new OAuthServer({
@@ -35,7 +35,7 @@ app.use('/', indexRouter);
 app.use('/admin', require('./routes/admin'));
 app.use('/api', require('./routes/api')(app));
 app.use('/users', app.oauth.authenticate(), usersRouter);
-
+app.use('/post',postRouter);
 
 models.sequelize.sync().then( () => {
   console.log(" DB 연결 성공")

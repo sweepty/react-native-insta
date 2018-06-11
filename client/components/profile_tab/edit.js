@@ -5,31 +5,27 @@ import {
   Text,
   StyleSheet,
   AsyncStorage,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 import { connect } from 'react-redux';
-import { getInfo, getProfile } from '../../actions/index';
-import UserInfo from './userInfo';
-import UserProfile from './user_profile';
-import Btns from './buttons';
-import Photos from './image_list';
-import _ from 'lodash';
+import { getInfo } from '../../actions/index';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
-class profileScreen extends React.Component {
+class editProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      topid: 'topdid'
     }
   }
   static navigationOptions = {
-    title: `good`//로그인 한 사람 아이디로 변경하기
+    title: '프로필 수정'
   };
   componentDidMount() {
-    this.props.getInfo();
-    this.props.getProfile();
+    this.props.getInfo(); 
   }
-  renderUsers() {
+  renderUserInfo() {
     console.log(this.props.info,"dkdkdk")
     console.log(this.props,"뭐있나확인")
     if (this.props.info) {
@@ -45,19 +41,14 @@ class profileScreen extends React.Component {
     }
   }
   render() {
-    console.log(this.props.info,"인포확인")
-    console.log(this.props.users,"인포확인")
     console.log(this.props.auth,"유저네임ㅎㅎㅎ")
-    console.log(this.props.getProfile,"프로필")
     return (
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.rowStyle}>
-            <UserInfo posts={2} follower={20} following={24}/>
-            <Btns />
+            <Image style={styles.imageStyle} source={require('../../images/otter.png')}/>
           </View>
-          <UserProfile name={"이승연"} intro={"하이하이염"} website={'https://github.com/facebook/react-native'}/>
-          {/* {this.renderUsers()} */}
+          {this.renderUserInfo()}
           <Photos />
         </View>
       </ScrollView>
@@ -83,13 +74,12 @@ class profileScreen extends React.Component {
 
 function mapStateToProps(state) {
   return { 
-    users: state.users,
+    // users: state.users,
     info: state.info,
-    auth: state.auth,
-    getProfile: state.getProfile
+    auth: state.auth
   };
 }
-export default connect(mapStateToProps, { getInfo, getProfile })(profileScreen);
+export default connect(mapStateToProps, { getInfo })(editProfile);
 
 const styles = StyleSheet.create({
   container: {

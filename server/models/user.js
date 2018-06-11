@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {});
+  User.associate = function(models) {
+    // User.hasMany(models.Post, {foreignKey: 'userId', sourceKey: 'id'});
+    // User.belongsTo(models.Profile, {foreignKey: 'userId', sourceKey: 'id'});
+  };
  
   User.beforeValidate((user) => {
     return bcrypt.hash(user.password, 10).then( hash => {

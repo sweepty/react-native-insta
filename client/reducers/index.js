@@ -33,11 +33,29 @@ function info(state = [], action) {
       return state;
   }
 }
+function addPost(state = [], action) {
+  switch (action.type) {
+    case 'ADD_POST':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+function getMyProfile(state = [], action) {
+  switch (action.type) {
+    case 'GET_MY_PROFILE':
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 const rootReducer = combineReducers({
   auth,
   users,
-  info
+  info,
+  addPost,
+  getMyProfile
 });
 
 export default rootReducer;
