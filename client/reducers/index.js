@@ -9,7 +9,14 @@
 
 // export default rootReducer;
 import { combineReducers } from 'redux';
-import UserReducer from './user_reducer';
+function auth(state = [], action) {
+  switch (action.type) {
+    case 'LOGIN':
+      return action.payload
+    default:
+      return state;
+  }
+}
 function users(state = [], action) {
   switch (action.type) {
     case 'FETCHED_USERS':
@@ -28,6 +35,7 @@ function info(state = [], action) {
 }
 
 const rootReducer = combineReducers({
+  auth,
   users,
   info
 });

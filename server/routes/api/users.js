@@ -20,24 +20,13 @@ module.exports = function(app) {
   }));
 
   router.use(app.oauth.authenticate());
-  // router.get('/', asyncError(async (req, res, next) => {
-  //   const users = await db.User.findAll({});
-  //   res.json(users);
-  // }));
-
-  // router.use('/me', asyncError(async (req, res) => {
-  //   // console.log(req.locals.user,"내 정보ㅗㅗㅗㅗㅗ");
-  //   // const user = await db.User.findOne({where: {username: req.locals.user.username}});
-  //   // const user = await db.User.findOne({where: {username: "adie"}});
-  //   console.log(user,"유저입니당")
-  //   res.json(user);
-  // }));
-  // return router;
   router.get('/me', (req, res) => {
     res.json(req.locals.user);
   });
   router.get('/', asyncError(async (req, res, next) => {
-    const users = await db.User.findAll({});
+    console.log(req,"로컬러러럴러러러러러")
+    const users = await db.User.findAll({where: {username: "adie"}});
+    // const users = await db.User.findAll({});
     res.json(users);
   }));
   

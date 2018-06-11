@@ -53,7 +53,7 @@ class profileScreen extends React.Component {
 function mapStateToProps(state) {
   return { 
     users: state.users,
-    // info: state.info,
+    info: state.info,
   };
 }
 export default connect(mapStateToProps, { fetchUsers, getInfo })(profileScreen);

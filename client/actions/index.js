@@ -4,6 +4,7 @@ import { AsyncStorage } from 'react-native';
 import { Config } from '../config';
 import NavigationService from '../navigation_service';
 
+export const LOGIN = 'LOGIN';
 export const FETCHED_USERS = 'FETCHED_USERS';
 export const FETCHED_USERINFO = 'FETCHED_USERINFO';
 export function signin(username, password) {
@@ -26,9 +27,8 @@ export function signin(username, password) {
       console.log(`Bearer ${response.data.access_token}`);
       console.log(username,"유저네이이이이임")
 
-      dispatch({type: FETCHED_USERINFO, payload: response.data})
+      dispatch({type: LOGIN, payload: username})
       await AsyncStorage.setItem('accessToken', response.data.access_token);
-      await AsyncStorage.setItem('username', username);
       NavigationService.navigate('App');
     } catch (err) {
       console.log(err.response || err);
