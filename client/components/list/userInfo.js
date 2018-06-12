@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function(props){ //props
-  // let {id, content, heart} = props;
+  let {id, username} = props;
   return (
     <View style={styles.viewStyle}>
       <View style={styles.userInfo}>
         <Image style={styles.imageStyle} source={require('../../images/otter.png')}/>
-        <Text style={styles.textStyle}>{props.id}</Text>
+        <Text style={styles.textStyle}>{username}</Text>
         <Ionicons name='ios-more' size={25} style={{justifyContent: "flex-end", marginTop: 10, marginLeft: 10}}/>
       </View>
     </View>

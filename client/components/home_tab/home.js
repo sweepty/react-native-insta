@@ -1,26 +1,31 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, FlatList, Swipeout } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button, SafeAreaView, FlatList} from 'react-native';
 import UserInfo from '../list/userInfo';
 import Content from '../list/content';
-// import { fetchUsers } from '../../actions';
-class HomeScreen extends React.Component {
+import { connect } from 'react-redux';
+import { fetchPost, getInfo } from '../../actions';
+class HomeScreen extends Component {
 
   static navigationOptions = {
     title: 'instagram',
   };
   componentDidMount() {
+    this.props.fetchPost();
   }
-  _keyExtractor = (item, index) => item.id;
+  // _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => index.toString();
   renderItem(item) {
-    return 
+    return (
       <ListItem 
         key={item.index} 
         id={item.index} 
         item={item.item} 
-        onToggle={this.onItemToggle} />;
+        onToggle={this.onItemToggle} />
+    );
+      
   }
   render() {
+    console.log(this.props.posts,'글 목록 찾아욥')
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -28,15 +33,12 @@ class HomeScreen extends React.Component {
           // onRefresh={fetchUsers()}
           style={styles.listView}
           keyExtractor={this._keyExtractor}
-          data={[{id: 'salyeon', content:'눈빛을 보면 난 알 수가 있어 아무런 말도 필요치 않아 이런게 아마 사랑일거야 첫 눈에 반해 버린 사랑', like: 1}, 
-          {id: 'adie', content:'아무런 말도 필요치 않아', like: 2}, 
-          {id: 'ella', content:'이런게 아마 사랑일거야', like: 3},
-          {id: 'presto', content:'첫 눈에 반해 버린 사랑', like: 4},
-          {id: 'parrot', content:'진진자라', like: 4}]}
+          data = {this.props.posts}
           renderItem={({item}) =>
+        
             <View key={item.id} style={styles.listItem}>
-              <UserInfo id={item.id}/>
-              <Content id={item.id} content={item.content} like={item.like}/>
+              <UserInfo id={item.User.id} username={item.User.username}/>
+              <Content id={item.id} username={item.User.username} content={item.content} />
             </View> 
           }
         />
@@ -44,11 +46,18 @@ class HomeScreen extends React.Component {
     );
   }
 }
-export default createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  },
-});
+
+function mapStateToProps(state) {
+  return { 
+    users: state.users,
+    info: state.info,
+    auth: state.auth,
+    posts: state.posts,
+    
+  };
+}
+export default connect(mapStateToProps, { fetchPost, getInfo })(HomeScreen);
+
 
 const styles = StyleSheet.create({
   container: {

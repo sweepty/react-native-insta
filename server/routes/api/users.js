@@ -26,9 +26,9 @@ module.exports = function(app) {
     const user_id = req.params.id;
     const profile = await db.User.findOne({
       where: { username: user_id },
-      include: {
+      include: [{
         model: db.Profile
-      }
+      }]
     })
     res.json(profile);
   }));
@@ -76,10 +76,10 @@ module.exports = function(app) {
     res.json(profile);
   });
   //내 정보 -- 왜 두개나오냐
-  router.get('/:username', asyncError(async (req, res ) => {
-    const usrname = req.params.username;
+  router.get('/:id', asyncError(async (req, res ) => {
+    const usrname = req.params.id;
     console.log(usrname,"확인")
-    const users = await db.User.findOne({username: usrname});
+    const users = await db.User.findOne({where:{username: usrname}});
     res.json(users);
   }));
   

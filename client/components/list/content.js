@@ -7,14 +7,14 @@ export default function(props){ //props
   return (
     <View style={styles.viewStyle}>
       <Image style={{width: 100 + "%", height: 250}} source={require('../../images/otter.png')}/>
-      <View style={styles.icons}>
+      <View style={styles.icons} key = {props.id}>
         <Ionicons name='ios-heart-outline' size={25}/>
         <Ionicons name='ios-text-outline' size={25}/>
         <Ionicons name='ios-paper-plane-outline' size={25}/>
         <Ionicons name='ios-bookmark-outline' size={25}/>
       </View>
-      <Text style={styles.likeStyle}>좋아요 {props.like}개</Text>
-      <Text style={styles.idStyle}>{props.id}</Text>
+      <Text style={styles.likeStyle}>좋아요 10개</Text>
+      <Text style={styles.idStyle}>{props.username}</Text>
       <Text style={styles.textStyle}>{props.content}</Text>
     </View>
   );

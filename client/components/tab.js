@@ -12,13 +12,14 @@ import AuthLoadingScreen from './auth_loading';
 import OtherScreen from './other';
 import EditProfile from './profile_tab/edit';
 // const OtherStack = createStackNavigator({ Other: OtherScreen });
+const HomeStack = createStackNavigator({Home: {screen: HomeScreen}});
 const editProfileStack = createStackNavigator({Edit: {screen: EditProfile}});
 const UploadStack = createStackNavigator({Upload: {screen: UploadScreen}});
 const ProfileStack = createStackNavigator({Profile: {screen: ProfileScreen}});
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 const RootStack = createBottomTabNavigator(
   {
-  Home: HomeScreen,
+  Home: HomeStack,
   Settings: SearchScreen,
   upload: UploadStack,
   heart: HeartScreen,

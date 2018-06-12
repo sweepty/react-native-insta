@@ -13,8 +13,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addPost, getInfo } from '../../actions/index';
-import { createStackNavigator } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class CameraRollPicker extends Component {
   constructor(props) {
@@ -30,7 +28,7 @@ class CameraRollPicker extends Component {
       <Button
         onPress={async () => {
           // this.props.addPost("good", null, "adie");
-          this.props.addPost(this.state.content, this.state.image , this.props.auth);
+          await this.props.addPost(this.state.content, this.state.image , this.props.info.id);
         }} 
         title="공유"
         color="blue"
@@ -45,7 +43,7 @@ class CameraRollPicker extends Component {
   )};
 
   render() {
-    console.log(this.props.auth,"업로드인데 유저아이디확인");
+    console.log(this.props.info.id,"업로드인데 유저아이디확인");
     return (
       <View style={styles.container}>
         <TextInput placeholder="설명 입력..." style={styles.form}

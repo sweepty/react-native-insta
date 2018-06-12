@@ -1,13 +1,3 @@
-// import { combineReducers } from 'redux';
-// import UserReducer from './user_reducer';
-
-
-// const rootReducer = combineReducers ({
-//   users: UserReducer,
-  
-// });
-
-// export default rootReducer;
 import { combineReducers } from 'redux';
 
 function auth(state = [], action) {
@@ -42,9 +32,17 @@ function addPost(state = [], action) {
       return state;
   }
 }
-function getProfile(state = [], action) {
+function posts(state = [], action) {
   switch (action.type) {
-    case 'GET_PROFILE':
+    case 'FETCHED_POST':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+function profile(state = [], action) {
+  switch (action.type) {
+    case 'GET_PROFILE': 
       return action.payload;
     default:
       return state;
@@ -56,7 +54,8 @@ const rootReducer = combineReducers({
   users,
   info,
   addPost,
-  getProfile
+  profile,
+  posts
 });
 
 export default rootReducer;

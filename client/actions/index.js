@@ -9,6 +9,8 @@ export const FETCHED_USERS = 'FETCHED_USERS';
 export const FETCHED_USERINFO = 'FETCHED_USERINFO';
 export const ADD_POST = 'ADD_POST';
 export const GET_PROFILE = 'GET_PROFILE';
+export const FETCHED_POST = 'FETCHED_POST';
+
 export function signin(username, password) {
   return async dispatch => {
     try {
@@ -29,7 +31,7 @@ export function signin(username, password) {
       console.log(`Bearer ${response.data.access_token}`);
       console.log(username,"유저네이이이이임")
       console.log(response.data, "RESULT");
-      dispatch({type: LOGIN, payload: response.data}); 
+      dispatch({type: LOGIN, payload: username}); 
       await AsyncStorage.setItem('accessToken', response.data.access_token);
       NavigationService.navigate('App');
     } catch (err) {
@@ -86,33 +88,14 @@ export function getInfo(username) {
     });
   };
 }
-// export function getProfile(id) {
-//   return dispatch => {
-//     console.log(axios.defaults.headers.common);
-//     axios.get(`${Config.server}/api/users/myprofile/${id}`).then( response => {
-//       console.log(response.data,"머나옴")
-//       dispatch({type: GET_PROFILE , payload: response.data});
-//     }).catch(err => {
-//       console.log(err.response);
-//       if (err.response.status == 401) {
-//         dispatch(signout());
-//       } else {
-//         alert('Network Error');
-//       }
-//     });
-//   };
-// }
+
 export function getProfile(username) {
   return dispatch => {
     console.log(axios.defaults.headers.common);
     console.log(username,"유저네임 잘 넘어오나 확인")
     axios.get(`${Config.server}/api/users/myprofile/${username}`).then( response => {
       console.log(response.data,"new 내 정보 new")
-      if (response.data != null) {
-        console.log(response.data,"내 정보 확인하고 싶")
-        dispatch({type: GET_PROFILE, payload: response.data});
-      } else {
-      }
+      dispatch({type: GET_PROFILE, payload: response.data});
     }).catch(err => {
       console.log(err.response);
       if (err.response.status == 401) {
@@ -127,7 +110,8 @@ export function fetchPost() {
   return dispatch => {
     console.log(axios.defaults.headers.common);
     axios.get(`${Config.server}/api/post`).then( response => {
-      dispatch({type: 'FETCHED_POST', payload: response.data});
+      console.log(response.data, '데이터있나')
+      dispatch({type: FETCHED_POST, payload: response.data});
     }).catch(err => {
       console.log(err.response);
       if (err.response.status == 401) {
@@ -142,9 +126,9 @@ export function fetchPost() {
 export function addPost(content, image, userId) {
   return async dispatch => {
     try {
-      const response = await axios.post(`${Config.server}/api/post`,
+      const response = await axios.post(`${Config.server}/api/post/${userId}`,
         qs.stringify({
-          userId: 1,
+          userId: userId,
           content: content,
           image: image,
         }), {
@@ -154,9 +138,6 @@ export function addPost(content, image, userId) {
       console.log("RESULT", response.data);
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
       console.log(`Bearer ${response.data.access_token}`);
-      console.log(content,"뭐라고 적었죠")
-      console.log(username,"뭐라고 적었죠")
-        
       dispatch({type: ADD_POST, payload: response.data}); 
       await AsyncStorage.setItem('accessToken', response.data.access_token);
       NavigationService.navigate('App');
