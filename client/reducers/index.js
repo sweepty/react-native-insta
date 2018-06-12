@@ -9,6 +9,7 @@
 
 // export default rootReducer;
 import { combineReducers } from 'redux';
+
 function auth(state = [], action) {
   switch (action.type) {
     case 'LOGIN':
@@ -41,9 +42,9 @@ function addPost(state = [], action) {
       return state;
   }
 }
-function getMyProfile(state = [], action) {
+function getProfile(state = [], action) {
   switch (action.type) {
-    case 'GET_MY_PROFILE':
+    case 'GET_PROFILE':
       return action.payload;
     default:
       return state;
@@ -55,7 +56,7 @@ const rootReducer = combineReducers({
   users,
   info,
   addPost,
-  getMyProfile
+  getProfile
 });
 
 export default rootReducer;

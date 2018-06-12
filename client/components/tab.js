@@ -12,6 +12,7 @@ import AuthLoadingScreen from './auth_loading';
 import OtherScreen from './other';
 import EditProfile from './profile_tab/edit';
 // const OtherStack = createStackNavigator({ Other: OtherScreen });
+const editProfileStack = createStackNavigator({Edit: {screen: EditProfile}});
 const UploadStack = createStackNavigator({Upload: {screen: UploadScreen}});
 const ProfileStack = createStackNavigator({Profile: {screen: ProfileScreen}});
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
@@ -57,7 +58,7 @@ const AppNavigator = createSwitchNavigator(
     AuthLoading: AuthLoadingScreen,
     App: RootStack,
     Auth: AuthStack,
-    EditProfile: EditProfile
+    EditProfile: editProfileStack
     // Other: OtherStack,
   },
   {

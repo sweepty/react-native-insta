@@ -8,7 +8,7 @@ module.exports = function(app) {
     const posts = await db.Posts.findAll({});
     res.json(posts);
   }));
-
+ 
   //글 올리기
   router.post('/post', asyncError(async (req, res, next) => {
     console.log(req.body,"아이디이이이이ㅣㅇ")

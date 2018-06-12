@@ -7,10 +7,12 @@ import {
   AsyncStorage,
   ScrollView
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { getInfo, getProfile } from '../../actions/index';
 import UserInfo from './userInfo';
 import UserProfile from './user_profile';
+
 import Btns from './buttons';
 import Photos from './image_list';
 import _ from 'lodash';
@@ -19,44 +21,50 @@ class profileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      username: ''
     }
   }
+  
   static navigationOptions = {
-    title: `good`//로그인 한 사람 아이디로 변경하기
+    title: 'salyeon'//로그인 한 사람 아이디로 변경하기
   };
   componentDidMount() {
-    this.props.getInfo();
-    this.props.getProfile();
+    console.log(this.props.auth,"머야 내 아이디 안넘어옴?")
+    this.props.getProfile("adie");
+    this.props.getInfo(this.props.auth);
   }
-  renderUsers() {
-    console.log(this.props.info,"dkdkdk")
-    console.log(this.props,"뭐있나확인")
-    if (this.props.info) {
-      return this.props.info.map(user => {
-        return (
-          <View style={styles.card} key={user.id}>
-            <Text>{user.username}</Text>
-            <Text>{user.content}</Text>
-            <Text>{user.image}</Text>
-          </View>
-        );
-      });
-    }
-  }
+  // renderUsers() {
+  //   if (this.props.getProfile) {
+  //     return this.props.getProfile.map(pro => {
+  //       return (
+  //         <View style={styles.card} key={user.id}>
+  //           <Text>{pro.name}</Text>
+  //           <Text>{pro.username}</Text>
+  //           <Text>{pro.intro}</Text>
+  //           <Text>{pro.myUrl}</Text>
+  //         </View>
+  //       );
+  //     });
+  //   }
+  // }
   render() {
-    console.log(this.props.info,"인포확인")
-    console.log(this.props.users,"인포확인")
-    console.log(this.props.auth,"유저네임ㅎㅎㅎ")
-    console.log(this.props.getProfile,"프로필")
+    console.log(this.props.profile,"유저아이디가져오기")
+
+    console.log(this.props.info,"유저정보 확인")
+    // console.log(this.props.getProfile,"프로필")
     return (
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.rowStyle}>
             <UserInfo posts={2} follower={20} following={24}/>
-            <Btns />
+            {/* <Button
+              title="프로필 수정"
+              onPress={() => _showMoreApp}
+            /> */}
+
+            <Button onPress={() => this.props.navigation.push('Edit')} title="프로필수정" color="black"/>
           </View>
-          <UserProfile name={"이승연"} intro={"하이하이염"} website={'https://github.com/facebook/react-native'}/>
+          <UserProfile name={this.props.info.username} intro={this.props.getProfile.intro} website={this.props.getProfile.myUrl}/>
           {/* {this.renderUsers()} */}
           <Photos />
         </View>
@@ -89,7 +97,7 @@ function mapStateToProps(state) {
     getProfile: state.getProfile
   };
 }
-export default connect(mapStateToProps, { getInfo, getProfile })(profileScreen);
+export default connect(mapStateToProps, { getInfo, getProfile })(withNavigation(profileScreen));
 
 const styles = StyleSheet.create({
   container: {

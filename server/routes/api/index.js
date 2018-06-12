@@ -6,7 +6,7 @@ var createError = require('http-errors');
 module.exports = function(app) {
   router.post('/oauth/token', app.oauth.token());
   router.use('/users', require('./users')(app));
-
+  // router.use('/post', require('./post')(app));
   // catch 404 and forward to error handler
   router.use(function (req, res, next) {
     next(createError(404));

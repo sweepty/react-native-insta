@@ -22,18 +22,22 @@ module.exports = function(app) {
   router.use(app.oauth.authenticate());
 
   //내 프로필 정보 가져오기
-  router.get('/myprofile', asyncError(async (req, res, next) => {
-    // console.log(req,"아이디를 찾아요")
-    const profile = await db.Profile.findAll({
-      where: { userId: 2 }
+  router.get('/myprofile/:id', asyncError(async (req, res, next) => {
+    const user_id = req.params.id;
+    const profile = await db.User.findOne({
+      where: { username: user_id },
+      include: {
+        model: db.Profile
+      }
     })
     res.json(profile);
   }));
 
   //프로필 등록
-  router.post('/myprofile', (req, res, next) => {
+  router.post('/myprofile/:id', (req, res, next) => {
+    const user_id = req.params.id;
     db.Profile.create({
-      userId: 2,
+      userId: user_id,
       name: req.body.name,
       intro: req.body.intro,
       myUrl: req.body.myurl
@@ -64,25 +68,18 @@ module.exports = function(app) {
   //     next(error);
   //   });
   // });
+
   // 내 글
   router.get('/me', (req, res) => {
     console.log(req,"아이디를 찾아요")
-    // console.log(this.props,"아이디있나오?")
-    // const profile = db.User.findAll({
-    //   attributes: [['content', 'image'], 'username'],
-    //   include: [{
-    //     model: db.Post,
-    //     where: { userId: 2 }, //아이디가 2인거
-    //     attributes: ['userId', 'content', 'image', 'createdAt']
-    //   }]
-    // })
     const profile = db.Post.findAll({where: { id: 2 }})
     res.json(profile);
   });
-  router.get('/', asyncError(async (req, res, next) => {
-    // console.log(req.params.id,"아이디를 찾아요")
-    // const users = await db.User.findAll({where: {username: "adie"}});
-    const users = await db.User.findAll({});
+  //내 정보 -- 왜 두개나오냐
+  router.get('/:username', asyncError(async (req, res ) => {
+    const usrname = req.params.username;
+    console.log(usrname,"확인")
+    const users = await db.User.findOne({username: usrname});
     res.json(users);
   }));
   
