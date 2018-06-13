@@ -3,6 +3,16 @@ var db = require('../../models');
 const asyncError = require('../../utils/async-error');
 var router = express.Router();
 
+function upsert(values, userId) {
+  return db.Profile.findOne({ where: userId }).then(function(obj) {
+    if(obj) { // update
+      return obj.update(values);
+    }
+    else { // insert
+      return db.Profile.create(values);
+    }
+  })
+}
 module.exports = function(app) {
 
   router.post('/', asyncError(async (req, res, next) => {
@@ -51,23 +61,29 @@ module.exports = function(app) {
       next(error);
     });
   });
-  // //프로필 수정
-  // router.put('/myprofile', (req, res, next) => {
-  //   db.Profile.create({
-  //     userId: 2,
-  //     name: req.body.name,
-  //     intro: req.body.intro,
-  //     myUrl: req.body.myurl
-  //   }).then( profile => {
-  //     res.json(profile.toJSON());
-  //   }).catch( error => {
-  //     console.log(err,'에러닷')
-  //     // if (error.name == 'SequelizeUniqueConstraintError') {
-  //     //   return res.status(422).json({code: 101, message: 'username exists'});
-  //     // }
-  //     next(error);
-  //   });
-  // });
+  
+  //프로필 수정
+  router.put('/myprofile', (req, res, next) => {
+    upsert({ 
+      userId: req.body.userId,
+      name: req.body.name,
+      intro: req.body.intro,
+      myUrl: req.body.myurl,}, { userId: req.body.userId }).then(function(result){
+      res.status(200).send({success: true});
+      res.json(result);
+    });
+    // db.Profile.update({
+    //   userId: req.body.userId,
+    //   name: req.body.name,
+    //   intro: req.body.intro,
+    //   myUrl: req.body.myurl,
+    // }).then( profile => {
+    //   res.json(profile.toJSON());
+    // }).catch( error => {
+    //   console.log(err,'에러닷')
+    //   next(error);
+    // });
+  });
 
   // 내 글
   router.get('/me', (req, res) => {

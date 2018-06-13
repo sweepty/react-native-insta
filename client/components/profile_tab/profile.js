@@ -52,7 +52,7 @@ class profileScreen extends React.Component {
 
   render() {
     console.log(this.props.info,"유저정보 확인")
-    console.log(this.props.mypost,"내   글    확인")
+    // console.log(this.props.mypost,"내   글    확인")
     const arr = [];
     const arr2 = [];
     const myPosts = [];

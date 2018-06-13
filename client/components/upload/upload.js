@@ -29,26 +29,16 @@ class CameraRollPicker extends Component {
 
   static navigationOptions = {
     title: 'adie',//로그인 한 사람 아이디로 변경하기
-    headerRight: (
-      <Button
-        onPress={async () => {
-          await this.props.addPost(this.props.info.id, this.state.content , this.state.image);
-        }} 
-        title="공유"
-        color="blue"
-      />
-    ),
+    // headerRight: (
+    //   <Button
+    //     onPress={async () => {
+    //       await this.props.addPost(this.props.info.id, this.state.content , this.state.image);
+    //     }} 
+    //     title="공유"
+    //     color="blue"
+    //   />
+    // ),
   };
-  // pickImage = () => {
-  //   ImagePickerIOS.openSelectDialog({}, (imageUri) => {
-  //     this.setState({ image: imageUri });
-  //   }, () => {console.log('유저가 선택 취소함')}
-  //   // error => console.error(error)
-  // )};
-  uploadHelper = () => {
-
-  }
-
   render() {
     console.log(this.props.info.id,"업로드인데 유저아이디확인");
     return (
@@ -66,10 +56,8 @@ class CameraRollPicker extends Component {
           <Button
             onPress={async () => {
               await this.props.addPost(this.props.info.id, this.state.content , this.state.image);
-              await naviagte('App');
             }} 
             title="공유"
-            color="blue"
           />
           {/* <Button
             onPress={this.pickImage}

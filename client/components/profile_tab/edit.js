@@ -4,16 +4,13 @@ import {
   Button,
   Text,
   StyleSheet,
-  AsyncStorage,
   ScrollView,
   Image,
-  FlatList,
   TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { getInfo, getProfile } from '../../actions/index';
-import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 class editProfile extends React.Component {
   constructor(props) {
@@ -46,8 +43,14 @@ class editProfile extends React.Component {
     ),
   };
   componentDidMount() {
-    this.props.getInfo(); //this.props.auth
-    this.props.getProfile();
+    this.props.getInfo(this.props.auth);
+    this.props.getProfile(this.props.auth);
+    this.setState({
+      name: this.props.profile.Profile.name,
+      username: this.props.auth,
+      intro: this.props.profile.Profile.intro,
+      myurl: this.props.profile.Profile.myurl
+    })
   }
   renderItem(item) {
     return 
@@ -74,7 +77,7 @@ class editProfile extends React.Component {
             <Button title="프로필 사진 바꾸기" onPress={() => pickImage}/>
             <View style={styles.forms}>
               <Text style={styles.fontStyle}>이름</Text>
-              <TextInput style={styles.fontStyle} placeholder="이름"
+              <TextInput style={styles.inputStyle} placeholder={this.props.profile.name}
                 onChangeText={(name) => this.setState({ name: name })}
                 spellCheck={false}
                 autoCorrect={false}
@@ -83,9 +86,9 @@ class editProfile extends React.Component {
                 value={this.state.name}
               />
             </View>
-            <View style={styles.forms}>
+            {/* <View style={styles.forms}>
               <Text style={styles.fontStyle}>사용자 이름</Text>
-              <TextInput style={styles.fontStyle} placeholder="사용자 이름"
+              <TextInput style={styles.inputStyle} placeholder={this.props.info.username}
                 onChangeText={(username) => this.setState({ username: username })}
                 spellCheck={false}
                 autoCorrect={false}
@@ -93,11 +96,11 @@ class editProfile extends React.Component {
                 borderRadius="10"
                 value={this.state.username}
               />
-            </View>
+            </View> */}
             <View style={styles.forms}>
               <Text style={styles.fontStyle}>웹사이트</Text>
-              <TextInput style={styles.fontStyle} placeholder="웹사이트"
-                onChangeText={(name) => this.setState({ myurl: myurl })}
+              <TextInput style={styles.inputStyle} placeholder={this.props.profile.myUrl}
+                onChangeText={(myurl) => this.setState({ myurl: myurl })}
                 spellCheck={false}
                 autoCorrect={false}
                 autoCapitalize='none'
@@ -107,8 +110,8 @@ class editProfile extends React.Component {
             </View>
             <View style={styles.forms}>
               <Text style={styles.fontStyle}>소개</Text>
-              <TextInput style={styles.fontStyle} placeholder="소개"
-                onChangeText={(name) => this.setState({ intro: intro })}
+              <TextInput style={styles.inputStyle} placeholder={this.props.profile.intro}
+                onChangeText={(intro) => this.setState({ intro: intro })}
                 spellCheck={false}
                 autoCorrect={false}
                 autoCapitalize='none'
@@ -116,32 +119,25 @@ class editProfile extends React.Component {
                 value={this.state.intro}
               />
             </View>
-            {/* <FlatList
-              renderItem={({item}) => <Text>{item.key}</Text>}
-            /> */}
+            <Button
+              onPress={() => {
+                this.props.updateProfile(this.state.name, this.state.myurl , this.state.intro);
+              }} 
+              title="완료"
 
+            />
           </View>
         </View>
       </ScrollView>
     );
   }
-
-  _showMoreApp = () => {
-    this.props.navigation.navigate('Other');
-  };
-
-  // _signOutAsync = async () => {
-  //   await AsyncStorage.clear();
-  //   this.props.navigation.navigate('Auth');
-  // };
 }
 
 function mapStateToProps(state) {
   return { 
-    // users: state.users,
     info: state.info,
     auth: state.auth,
-    getProfile: state.getProfile
+    profile: state.profile
   };
 }
 export default connect(mapStateToProps, { getInfo, getProfile })(withNavigation(editProfile));
@@ -169,14 +165,18 @@ const styles = StyleSheet.create({
     margin: 10
   },
   forms: {
-
     flexDirection: "row",
-    // justifyContent: "",
-    alignItems: "flex-start",
+    justifyContent: "space-between",
+    alignItems: "center",
     margin: 10
   },
   fontStyle: {
     fontSize: 17,
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+  },
+  inputStyle: {
+    fontSize: 17,
+    justifyContent: "space-around",
+    color: 'gray'
   }
 });

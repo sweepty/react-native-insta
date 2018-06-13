@@ -20,7 +20,7 @@ const ProfileStack = createStackNavigator({Profile: {screen: ProfileScreen}});
 const RootStack = createBottomTabNavigator(
   {
   Home: HomeStack,
-  Settings: SearchScreen,
+  Search: SearchScreen,
   upload: UploadStack,
   heart: HeartScreen,
   profile: ProfileStack,
@@ -33,7 +33,7 @@ const RootStack = createBottomTabNavigator(
         let iconName;
         if (routeName === 'Home') {
           iconName = `ios-home`;
-        } else if (routeName === 'Settings') {
+        } else if (routeName === 'Search') {
           iconName = `ios-search`;
         } else if (routeName === 'upload') {
           iconName = `ios-add-circle${focused ? '' : '-outline'}`;

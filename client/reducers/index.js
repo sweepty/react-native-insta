@@ -58,7 +58,6 @@ function mypost(state = [], action) {
   }
 }
 
-
 const rootReducer = combineReducers({
   auth,
   users,

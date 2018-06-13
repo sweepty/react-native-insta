@@ -11,6 +11,7 @@ export const ADD_POST = 'ADD_POST';
 export const GET_PROFILE = 'GET_PROFILE';
 export const FETCHED_POST = 'FETCHED_POST';
 export const FETCHED_MY_POST = 'FETCHED_MY_POST';
+export const EDIT_PROFILE = 'EDIT_PROFILE';
 
 export function signin(username, password) {
   return async dispatch => {
@@ -103,6 +104,28 @@ export function getProfile(username) {
     });
   };
 }
+export function editProfile(userId, name, intro, myUrl) {
+  return async () => {
+    try {
+      const response = await axios.put(`${Config.server}/api/users/myprofile`,
+        qs.stringify({
+          userId: userId,
+          name: name,
+          intro: intro,
+          myUrl: myUrl,
+        }), 
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      });
+      console.log("RESULT", response.data);
+      // dispatch({type: EDIT_PROFILE, payload: response.data}); 
+      NavigationService.navigate('App');
+    } catch (err) {
+      console.log(err.response || err);
+      alert('ERROR');
+    }
+  };
+}
 export function fetchPost() {
   return dispatch => {
     console.log(axios.defaults.headers.common);
@@ -161,4 +184,5 @@ export function fetchMyPost(id) {
     });
   };
 }
+
 
