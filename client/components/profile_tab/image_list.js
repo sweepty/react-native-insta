@@ -6,12 +6,12 @@ export default function(props){ //props
 //   let {posts, follower, following} = props;
   _keyExtractor = (item, index) => item.id;
   renderItem = (item) => {
-    return <Swipeout {...swipeSettings}>
+    return 
       <ListItem 
         key={item.index} 
         id={item.index} 
         item={item.item} 
-        onToggle={this.onItemToggle} /></Swipeout>;
+        onToggle={this.onItemToggle} />;
   };
   
   return (

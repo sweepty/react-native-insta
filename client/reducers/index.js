@@ -24,7 +24,7 @@ function info(state = [], action) {
       return state;
   }
 }
-function addPost(state = [], action) {
+function newpost(state = [], action) {
   switch (action.type) {
     case 'ADD_POST':
       return action.payload;
@@ -49,13 +49,24 @@ function profile(state = [], action) {
   }
 }
 
+function mypost(state = [], action) {
+  switch (action.type) {
+    case 'FETCHED_MY_POST': 
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+
 const rootReducer = combineReducers({
   auth,
   users,
   info,
-  addPost,
+  newpost,
   profile,
-  posts
+  posts,
+  mypost
 });
 
 export default rootReducer;

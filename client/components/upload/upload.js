@@ -4,12 +4,12 @@ import {
   Text, 
   View, 
   Button,
-  Image, 
   ImagePickerIOS, 
   AppRegistry,
-  ImageStore, 
   TextInput,
-  FlatList 
+  FlatList,
+  SafeAreaView
+
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addPost, getInfo } from '../../actions/index';
@@ -22,60 +22,63 @@ class CameraRollPicker extends Component {
       image: ''
     };
   }
+
+  componentDidMount() {
+    this.props.getInfo(this.props.auth);
+  }
+
   static navigationOptions = {
-    title: 'salyeon',//로그인 한 사람 아이디로 변경하기
+    title: 'adie',//로그인 한 사람 아이디로 변경하기
     headerRight: (
       <Button
         onPress={async () => {
-          // this.props.addPost("good", null, "adie");
-          await this.props.addPost(this.state.content, this.state.image , this.props.info.id);
+          await this.props.addPost(this.props.info.id, this.state.content , this.state.image);
         }} 
         title="공유"
         color="blue"
       />
     ),
   };
-  pickImage = () => {
-    ImagePickerIOS.openSelectDialog({}, (imageUri) => {
-      this.setState({ image: imageUri });
-    }, () => {console.log('유저가 선택 취소함')}
-    // error => console.error(error)
-  )};
+  // pickImage = () => {
+  //   ImagePickerIOS.openSelectDialog({}, (imageUri) => {
+  //     this.setState({ image: imageUri });
+  //   }, () => {console.log('유저가 선택 취소함')}
+  //   // error => console.error(error)
+  // )};
+  uploadHelper = () => {
+
+  }
 
   render() {
     console.log(this.props.info.id,"업로드인데 유저아이디확인");
     return (
-      <View style={styles.container}>
-        <TextInput placeholder="설명 입력..." style={styles.form}
-          onChangeText={(content) => this.setState({ content: content })}
-          spellCheck={false}
-          autoCorrect={false}
-          autoCapitalize='none'
-          borderRadius="10"
-          value={this.state.content}
-        />
-      </View>
-      // <View style={{ flex: 1, justifyContent: 'center' }}>
-      //   {/* <Image source ={require(this.state.image)}/> */}
-      //   <TextInput
-      //     style={styles.form}
-      //     multiline={true}
-      //     onChangeText={(text) => this.setState({text})}
-      //     placeholder="설명 입력..."
-      //     value={this.state.text}
-      //   />
-      //   <Button
-      //     onPress={this.pickImage}
-      //     title="사진 추가"
-      //     color="purple"
-      //     accessibilityLabel="Learn more about this purple button"
-      //   />
-      //   {/* <Image style={styles.preview}/>
-      //   {this.state.image?
-      //     <Image style={{ flex: 1 }} source={{ uri: this.state.image }} /> :
-      //     null
-      //   } */}
-      // </View>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <TextInput placeholder="설명 입력..." style={styles.form}
+            onChangeText={(content) => this.setState({ content: content })}
+            spellCheck={false}
+            autoCorrect={false}
+            multiline={true}
+            autoCapitalize='none'
+            borderRadius="10"
+            value={this.state.content}
+          />
+          <Button
+            onPress={async () => {
+              await this.props.addPost(this.props.info.id, this.state.content , this.state.image);
+              await naviagte('App');
+            }} 
+            title="공유"
+            color="blue"
+          />
+          {/* <Button
+            onPress={this.pickImage}
+            title="사진 추가"
+            color="purple"
+            accessibilityLabel="Learn more about this purple button"
+          /> */}
+        </View>
+      </SafeAreaView>
     );
   }
 }
@@ -84,19 +87,19 @@ function mapStateToProps(state) {
     users: state.users,
     info: state.info,
     auth: state.auth,
-    addPost: state.addPost,
+    newpost: state.newpost,
     
   };
 }
 export default connect(mapStateToProps, { addPost, getInfo })(CameraRollPicker);
 
-// AppRegistry.registerComponent('CameraRollPicker', () => CameraRollPicker);
+AppRegistry.registerComponent('CameraRollPicker', () => CameraRollPicker);
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   preview: {
     justifyContent: 'center'
@@ -105,10 +108,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#7a42f4',
-    borderWidth: 1,
+    // borderWidth: 1,
     // borderRadius: 20,
     height: 40,
-    width: 100 + '%'
+    width: 100 + '%',
+    margin: 10
     
   }
 });

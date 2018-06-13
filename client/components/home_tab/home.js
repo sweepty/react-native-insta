@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, FlatList} from 'react-native';
+import { StyleSheet, Text, View, Button, SafeAreaView, FlatList, AsyncStorage } from 'react-native';
 import UserInfo from '../list/userInfo';
 import Content from '../list/content';
 import { connect } from 'react-redux';
 import { fetchPost, getInfo } from '../../actions';
 class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+      // data: []
+    }
+  }
 
   static navigationOptions = {
     title: 'instagram',
   };
   componentDidMount() {
     this.props.fetchPost();
+    // this.setState({data: this.props.mypost})
   }
-  // _keyExtractor = (item, index) => item.id;
   _keyExtractor = (item, index) => index.toString();
   renderItem(item) {
     return (
@@ -24,13 +31,21 @@ class HomeScreen extends Component {
     );
       
   }
+  onRefresh = () => {
+    this.props.fetchPost();
+  }
+  onEndReached = () => {
+    this.props.fetchPost();
+  };
   render() {
     console.log(this.props.posts,'글 목록 찾아욥')
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
-          // refreshing={true}
-          // onRefresh={fetchUsers()}
+          refreshing={this.state.refreshing}
+          onRefresh={this.onRefresh}
+          onEndReachedThreshold={1}
+          onEndReached={this.onEndReached}
           style={styles.listView}
           keyExtractor={this._keyExtractor}
           data = {this.props.posts}

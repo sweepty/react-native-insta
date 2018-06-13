@@ -10,6 +10,7 @@ export const FETCHED_USERINFO = 'FETCHED_USERINFO';
 export const ADD_POST = 'ADD_POST';
 export const GET_PROFILE = 'GET_PROFILE';
 export const FETCHED_POST = 'FETCHED_POST';
+export const FETCHED_MY_POST = 'FETCHED_MY_POST';
 
 export function signin(username, password) {
   return async dispatch => {
@@ -29,10 +30,10 @@ export function signin(username, password) {
       console.log("RESULT", response.data);
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
       console.log(`Bearer ${response.data.access_token}`);
-      console.log(username,"유저네이이이이임")
       console.log(response.data, "RESULT");
       dispatch({type: LOGIN, payload: username}); 
       await AsyncStorage.setItem('accessToken', response.data.access_token);
+      await AsyncStorage.setItem('username', username);
       NavigationService.navigate('App');
     } catch (err) {
       console.log(err.response || err);
@@ -70,14 +71,10 @@ export function fetchUsers() {
 export function getInfo(username) {
   return dispatch => {
     console.log(axios.defaults.headers.common);
-    console.log(username,"겟인포 유저정보 확인")
+    // console.log(username,"겟인포 유저정보 확인")
     axios.get(`${Config.server}/api/users/${username}`).then( response => {
-      console.log(response.data,"겟인포 데이터 확인")
-      if (response.data != null) {
-        console.log(response.data,"내 정보 확인하고 싶")
-        dispatch({type: FETCHED_USERINFO, payload: response.data});
-      } else {
-      }
+      console.log(response.data,"내 정보 확인하고 싶")
+      dispatch({type: FETCHED_USERINFO, payload: response.data});
     }).catch(err => {
       console.log(err.response);
       if (err.response.status == 401) {
@@ -123,28 +120,45 @@ export function fetchPost() {
   };
 }
 
-export function addPost(content, image, userId) {
+export function addPost(userId, content, image) {
   return async dispatch => {
     try {
-      const response = await axios.post(`${Config.server}/api/post/${userId}`,
+      const response = await axios.post(`${Config.server}/api/post`,
         qs.stringify({
           userId: userId,
           content: content,
           image: image,
-        }), {
+        }), 
+        {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        });
-
+      });
       console.log("RESULT", response.data);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
-      console.log(`Bearer ${response.data.access_token}`);
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
+      // console.log(`Bearer ${response.data.access_token}`);
       dispatch({type: ADD_POST, payload: response.data}); 
-      await AsyncStorage.setItem('accessToken', response.data.access_token);
+      // await AsyncStorage.setItem('accessToken', response.data.access_token);
       NavigationService.navigate('App');
     } catch (err) {
       console.log(err.response || err);
-      alert('Invalid ID or Password');
+      alert('ERROR');
     }
+  };
+}
+
+export function fetchMyPost(id) {
+  return dispatch => {
+    console.log(axios.defaults.headers.common);
+    axios.get(`${Config.server}/api/post/me/${id}`).then( response => {
+      console.log(response.data, '데이터있나')
+      dispatch({type: FETCHED_MY_POST, payload: response.data});
+    }).catch(err => {
+      console.log(err.response);
+      if (err.response.status == 401) {
+        dispatch(signout());
+      } else {
+        alert('Network Error');
+      }
+    });
   };
 }
 

@@ -11,7 +11,6 @@ module.exports = function(app) {
       // order: '"updatedAt" DESC',
       include: [{
         model: db.User,
-        // required: true,
         attributes: ['id', 'username'],
         
       }]
@@ -20,10 +19,10 @@ module.exports = function(app) {
   }));
  
   //글 올리기
-  router.post('/:id', asyncError(async (req, res, next) => {
-    const user_id = req.params.id;
+  router.post('/', asyncError(async (req, res, next) => {
+    console.log(req.body,'바디에 있나');
     db.Post.create({
-      userId: user_id,
+      userId: req.body.userId,
       content: req.body.content,
       image: req.body.image
     }).then( post => {
@@ -38,10 +37,9 @@ module.exports = function(app) {
   // 내가 쓴 글만 가져오기
   router.get('/me/:id', asyncError(async (req, res, next) => {
     const user_id = req.params.id;
-    const myposts = await db.User.findAll({
-      where: [{id: user_id}],
+    const myposts = await db.User.findAndCountAll({
+      where: [{username: user_id}],
       attributes: ['id', 'username'],
-      // order: [['updatedAt', 'DESC']],
       include: [{
         model: db.Post,
         required: true,
@@ -51,6 +49,7 @@ module.exports = function(app) {
     });
     res.json(myposts);
   }));
+
   
   return router;
 

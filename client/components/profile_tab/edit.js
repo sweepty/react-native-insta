@@ -30,7 +30,7 @@ class editProfile extends React.Component {
     headerLeft: (
       <Button
         onPress={() => {
-          this.props.navigation.goBack();
+          this.navigation.navigate('profile');
         }} 
         title="취소"
       />

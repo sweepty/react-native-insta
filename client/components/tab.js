@@ -16,7 +16,7 @@ const HomeStack = createStackNavigator({Home: {screen: HomeScreen}});
 const editProfileStack = createStackNavigator({Edit: {screen: EditProfile}});
 const UploadStack = createStackNavigator({Upload: {screen: UploadScreen}});
 const ProfileStack = createStackNavigator({Profile: {screen: ProfileScreen}});
-const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+// const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 const RootStack = createBottomTabNavigator(
   {
   Home: HomeStack,
@@ -58,7 +58,7 @@ const AppNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     App: RootStack,
-    Auth: AuthStack,
+    Auth: SignInScreen,
     EditProfile: editProfileStack
     // Other: OtherStack,
   },
