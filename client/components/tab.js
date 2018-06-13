@@ -1,6 +1,5 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import HomeScreen from './home_tab/home';
 import SearchScreen from './search_tab/search';
@@ -11,12 +10,11 @@ import SignInScreen from './signin';
 import AuthLoadingScreen from './auth_loading';
 import OtherScreen from './other';
 import EditProfile from './profile_tab/edit';
-// const OtherStack = createStackNavigator({ Other: OtherScreen });
+
 const HomeStack = createStackNavigator({Home: {screen: HomeScreen}});
 const editProfileStack = createStackNavigator({Edit: {screen: EditProfile}});
 const UploadStack = createStackNavigator({Upload: {screen: UploadScreen}});
 const ProfileStack = createStackNavigator({Profile: {screen: ProfileScreen}});
-// const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 const RootStack = createBottomTabNavigator(
   {
   Home: HomeStack,
@@ -69,13 +67,5 @@ const AppNavigator = createSwitchNavigator(
 
 export default AppNavigator
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 

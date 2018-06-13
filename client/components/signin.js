@@ -14,9 +14,6 @@ import { signin } from '../actions';
 import { Constants, LinearGradient } from 'expo';
 
 class SignInScreen extends React.Component {
-  // static navigationOptions = {
-  //   title: 'Sign in',
-  // };
   constructor(props) {
     super(props);
     this.state = {
@@ -42,12 +39,6 @@ class SignInScreen extends React.Component {
             borderRadius="10"
             value={this.state.password}
             secureTextEntry={true} />
-          {/* <Button title="로그인" 
-          backgroundColor='blue'
-          onPress={() => {
-            this.props.signin(this.state.username, this.state.password);
-          }} disabled={!this.state.username || !this.state.password }
-            style={styles.button}/> */}
           <View style={styles.con}>
             <LinearGradient
               colors={['#00FFFF', '#17C8FF', '#329BFF', '#4C64FF', '#6536FF', '#8000FF']}
@@ -106,16 +97,11 @@ const styles = StyleSheet.create({
   },
   con: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
     marginTop: 30
   },
   buttonContainer: {
-    // width: 200,
     alignItems: 'center',
-    // borderRadius: 100
   },
   buttonText: {
     textAlign: 'center',
